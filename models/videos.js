@@ -36,11 +36,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Video.associate = function(models) {
     models.Video.belongsToMany(models.Extension,{through:'VideoExtensions'});
+    models.Video.belongsToMany(models.AspectRatio,{through:'VideoAspectRatios'});
+    models.Video.hasOne(models.Metadata);
   };
 
-  Video.associate = function(models) {
-    models.Video.belongsToMany(models.AspectRatio,{through:'VideoAspectRatios'});
-  };
+  // Video.associate = function(models) {
+  // };
 
   return Video;
 };

@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Extension.associate = function(models) {
-    models.Extension.belongsToMany(models.Video,{
+    models.Extension.belongsToMany(models.Video,
+      {
         through:'VideoExtensions'
       });
   };

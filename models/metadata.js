@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Metadata.associate = function(models) {
-    models.Metadata.hasOne(models.Video);
+    models.Metadata.belongsTo(models.Video);
   };
 
   return Metadata;

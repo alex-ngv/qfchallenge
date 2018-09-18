@@ -4,7 +4,6 @@ const models = require('../models/index.js'),
 
 //I used ffprobe to create dummy data for the DB, then when deploying I will run
 //this api call to populate the data
-
 createVideo = function(req, res, next) {
   // ffprobe(req.body.fileLocation, {
   //   path: ffprobeStatic.path
@@ -28,7 +27,7 @@ createVideo = function(req, res, next) {
         }
       }).spread((extension, created) => {
         extension.addVideo([video])
-        console.log(extension.get())
+        // console.log(extension.get())
       })
       return video
     }).then((video) => {
@@ -38,7 +37,7 @@ createVideo = function(req, res, next) {
         }
       }).spread((aspectRatio, created) => {
         aspectRatio.addVideo([video])
-        console.log(aspectRatio.get())
+        // console.log(aspectRatio.get())
       })
       return video
     }).then((video) => {
@@ -55,11 +54,7 @@ createVideo = function(req, res, next) {
       }
       return res.send('Everything Added')
     }).catch((err)=>{
-      if (err){
-        console.log(err)
-      }else{
-        console.log('Caught by logic')
-      }
+      console.log(err)
     })
   // })
 }
@@ -76,80 +71,43 @@ getVideos = function(req, res, next) {
       ['date', 'desc']
     ]
   }).then((data) => {
-    return (data) ? res.send(data) : res.send('No Videos Found');
+    return (data) ? res.status(200).send(data) : res.status(403).send('No Videos Found');
   }).catch((err)=>{
     console.log(err)
-    if (err){
-      console.log(err)
-    }else{
-      console.log('Caught by logic')
-    }
   })
 }
 
 getVideo = function(req, res, next) {
-  let payload = {}
   models.Video.findAll({
       where: {
         video_id: req.params.uuid
-      }
+      },include: [{
+          model: models.AspectRatio,
+        },{
+          model: models.Extension
+        },{
+          model: models.Metadata
+        }]
     }).spread((data) => {
-      payload.video = data
-      if (!data) {
-        res.send('No Matching Video Found')
-        return Promise.reject()
-      }
+      return (data) ? res.status(200).send(data) : res.status(403).send('Vidoe Not Found');
     })
-    .then(() => {
-      models.sequelize.query('select extension from Extensions where extension_id in (select ExtensionExtensionId from VideoExtensions where VideoVideoID = "' + req.params.uuid + '")')
-        .spread((extensions) => {
-          payload.extensions = extensions
-        })
-        .then(() => {
-          models.sequelize.query('select aspectRatio from AspectRatios where ar_id in (select AspectRatioArId from VideoAspectRatios where VideoVideoID = "' + req.params.uuid + '")')
-            .spread((ar) => {
-              payload.aspectRatios = ar
-            })
-        })
-        .then(() => {
-          models.sequelize.query('select videoCodec,videoBitRate,audioBitRate,audioCodec from Metadata where uuid in (select MetadatumUuid from Videos where video_id = "' + req.params.uuid + '")')
-            .spread((meta) => {
-              payload.metadata = meta
-              res.send(payload)
-            })
-        })
-    }).catch((err)=>{
-      if (err){
-        console.log(err)
-      }else{
-        console.log('Caught by logic')
-      }
+    .catch((err)=>{
+      console.log(err)
     })
 }
 
 getVideosAR = function(req, res, next) {
-  models.sequelize.query('select ar_id from aspectRatios where aspectRatio =  "' + req.params.aspectRatio + '"')
-    .spread((ar_id) => {
-      if (!Object.keys(ar_id).length){
-        res.send("Aspect Ratio Not Found")
-        return Promise.reject()
-      }
-      return id = ar_id[0].ar_id
-    }).then((id) => {
-      models.sequelize.query('select * from videos where video_id in(select VideoVideoID from VideoAspectRatios where AspectRatioArId ="' + id + '")')
-        .spread((data) => {
-          if (!data){
-            return res.send("No Vidoes With Aspect Ratio "+req.params.aspectRatio+" Were Found.")
-          }
-          console
-          res.send(data)
-        })
-    }).catch((err)=>{
-      if (err){
-        console.log(err)
-      }else{
-        console.log('Caught by logic')
-      }
+  models.AspectRatio.findAll({
+      where: {
+        aspectRatio: req.params.aspectRatio
+      },include: [{
+          model: models.Video,
+        }]
+    }).spread((data) => {
+      return (data) ? res.status(200).send(data) : res.status(403).send('Aspect Ratio Not Found');
+    })
+    .catch((err)=>{
+      console.log(err)
     })
 }
 

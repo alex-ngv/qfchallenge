@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   AspectRatio.associate = function(models) {
-    models.AspectRatio.belongsToMany(models.Video, {through:"VideoAspectRatios"});
+    models.AspectRatio.belongsToMany(models.Video,
+      {
+        through:"VideoAspectRatios"
+      });
   };
 
   return AspectRatio;
