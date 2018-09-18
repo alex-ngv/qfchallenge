@@ -42,9 +42,5 @@ module.exports = (sequelize, DataTypes) => {
     models.Video.belongsToMany(models.AspectRatio,{through:'VideoAspectRatios'});
   };
 
-  // Video.associate = function(models) {
-  //   models.Video.hasOne(models.Metadata);
-  // };
-
   return Video;
 };

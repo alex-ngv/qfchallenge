@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "JUNIT_REPORT_PATH=test-result/result.xml JUNIT_REPORT_STACK=1 mocha --timeout 25000 --colors --reporter mocha-jenkins-reporter || true"
   },
   "author": "Alexander Nagaev",
   "license": "ISC",
@@ -12,13 +13,20 @@
     "bcrypt": "^3.0.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
     "express": "^4.16.3",
     "ffprobe": "^1.1.0",
     "ffprobe-static": "^3.0.0",
     "jsonwebtoken": "^8.3.0",
+    "mocha": "^5.2.0",
+    "mocha-jenkins-reporter": "^0.4.0",
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "sequelize": "^4.38.1"
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "save": "^2.3.2",
+    "sequelize": "^4.38.1",
+    "supertest": "^3.3.0"
   }
 }

@@ -4,12 +4,15 @@ const models   = require('../../models/index')
 const config   = require('../../config/config')
 
 getToken = function(req,res,next){
+  if (!req.body.password || !req.body.name){
+    return res.send('Please Provide Name and Password')
+  }
   models.User.findOne({ where: {name: req.body.name} }).then(user => {
-    var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+    const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
     if (!passwordIsValid){
       return res.status(401).send({ auth: false, token: null })
     }else{
-      var token = jwt.sign({ id: user.uuid }, config.secret, {
+      const token = jwt.sign({ id: user.uuid }, config.secret, {
         expiresIn: 86400 // expires in 24 hours
       });
       return res.status(200).send({ auth: true, token: token})

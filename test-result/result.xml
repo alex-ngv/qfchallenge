@@ -1,0 +1,12 @@
+<testsuites name="Mocha Tests">
+  <testsuite name="User" tests="4" errors="0" failures="0" skipped="0" timestamp="2018-09-18T04:03:28" time="0.065">
+    <testcase classname="User" name="should give me a token" time="0.036">
+    </testcase>
+    <testcase classname="User" name="should return 5 videos" time="0.007">
+    </testcase>
+    <testcase classname="User" name="should return a video with all the info" time="0.01">
+    </testcase>
+    <testcase classname="User" name="should return a vidoe with aspet ratios" time="0.005">
+    </testcase>
+  </testsuite>
+</testsuites>

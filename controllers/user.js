@@ -1,6 +1,10 @@
 const models = require('../models/index.js')
 const bcrypt = require('bcrypt')
+
 createUser = function(req, res, next) {
+  if (!req.body.password || !req.body.name){
+    return res.send('Please Provide Name and Password')
+  }
   var hashedPassword = bcrypt.hashSync(req.body.password, 8);
   models.User.findOrCreate({
       where: {
