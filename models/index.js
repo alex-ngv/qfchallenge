@@ -7,7 +7,7 @@ var   db        = {};
 const sequelize = new Sequelize('dbs43e2mog16hm', 'wtkgoyzewggwls', 'd3e087fb6e190bc463abdde8d053dda909aa66559f7606f7f35cc3b33df5af36', {
   host: 'ec2-54-83-50-145.compute-1.amazonaws.com',
 // const sequelize = new Sequelize('qf', 'root', 'root', {
-//   host: 'localhost',
+  // host: 'localhost',
   // port: 8889,
   port: 5432,
   // dialect: 'mysql',
