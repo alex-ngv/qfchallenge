@@ -17,7 +17,7 @@ createUser = function(req, res, next) {
         plain: true
       }))
       if(!created){
-        res.send("User Already Exists")
+        res.status(400).send("User Already Exists")
         return
       }
       res.send("User Created")

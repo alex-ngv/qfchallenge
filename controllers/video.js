@@ -60,6 +60,7 @@ createVideo = function(req, res, next) {
 }
 
 getVideos = function(req, res, next) {
+  console.log('hello?')
   let pageOffset = 0
   if (req.params.page) {
     pageOffset = (req.params.page-1) * 5
@@ -71,7 +72,7 @@ getVideos = function(req, res, next) {
       ['date', 'desc']
     ]
   }).then((data) => {
-    return (data) ? res.status(200).send(data) : res.status(403).send('No Videos Found');
+    return (data && Object.keys(data).length>0) ? res.status(200).send(data) : res.status(403).send('No Videos Found');
   }).catch((err)=>{
     console.log(err)
   })

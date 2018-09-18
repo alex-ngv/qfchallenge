@@ -5,7 +5,7 @@ const express   = require('express'),
   bodyParser    = require('body-parser'),
   ffprobeStatic = require('ffprobe-static'),
   passport      = require('passport');
-                require('./controllers/utils/passport');
+                  require('./controllers/utils/passport');
 
 const user      = require('./controllers/user');
 const video     = require('./controllers/video');
