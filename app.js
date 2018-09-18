@@ -25,4 +25,4 @@ app.get('/getVideos/aspectRatio/:aspectRatio',passport.authenticate('jwt', {sess
 app.get('/', function (req, res) {
   res.send('Hello')
 })
-app.listen(3456)
+app.listen(process.env.PORT || 5000)
