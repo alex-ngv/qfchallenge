@@ -22,4 +22,7 @@ app.get('/getVideo/id/:uuid',passport.authenticate('jwt', {session: false}),vide
 app.get('/getVideos/aspectRatio/:aspectRatio',passport.authenticate('jwt', {session: false}),video.getVideosAR);
 
 
+app.get('/', function (req, res) {
+  res.send('Hello')
+})
 app.listen(3456)
