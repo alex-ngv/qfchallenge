@@ -6,9 +6,10 @@ var   db        = {};
 
 const sequelize = new Sequelize('qf', 'root', 'root', {
   host: 'localhost',
-  port: 8889,
-  dialect: 'mysql',
-  // or use 'postgres'
+  // port: 8889,
+  port: 5432,
+  // dialect: 'mysql',
+  dialect: 'postgres',
   // operatorsAliases: false,
 
   pool: {
